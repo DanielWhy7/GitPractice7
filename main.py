@@ -8,7 +8,13 @@ students_db = [
 
 def get_average_grade(student):
     # Считает средний балл студента
-    return sum(student["grades"]) / len(student["grades"])
+    numeric_grades = [
+        g for g in student["grades"]
+        if isinstance(g, (int, float)) and not isinstance(g, bool)
+    ]
+    if not numeric_grades:
+        return 0
+    return sum(numeric_grades) / len(numeric_grades)
 
 
 def find_student_by_id(student_id):
