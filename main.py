@@ -18,16 +18,22 @@ def get_average_grade(student):
 
 
 def find_student_by_id(student_id):
-    # Ищет студента по ID
     for student in students_db:
-        if student["id"] == student_id:
+        #Изменения
+        #if student["id"] == student_id:
+        if str(student["id"]) == str(student_id).strip():
             return student
     return None
 
 
 def add_new_student(name, grades_str):
     # Добавляет нового студента. Оценки передаются строкой через запятую (например: '4,5,3')
-    grades = [int(g.strip()) for g in grades_str.split(",")]
+    items = [g.strip() for g in grades_str.split(",")]
+    for item in items:
+        if not item.isdigit() or item == "":
+            print("Ошибка: строка оценок должна содержать только числа, разделенные запятыми.")
+            return
+    grades = [int(item) for item in items]
     new_id = len(students_db) + 1
     new_student = {"id": new_id, "name": name, "grades": grades}
     students_db.append(new_student)
