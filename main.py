@@ -12,9 +12,10 @@ def get_average_grade(student):
 
 
 def find_student_by_id(student_id):
-    # Ищет студента по ID
     for student in students_db:
-        if student["id"] == student_id:
+        #Изменения
+        #if student["id"] == student_id:
+        if str(student["id"]) == str(student_id).strip():
             return student
     return None
 
