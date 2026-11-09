@@ -34,6 +34,17 @@ def print_report():
     for student in students_db:
         avg = get_average_grade(student)
         print(f"[{student['id']}] {student['name']} | Средний балл: {avg:.2f}")
+        
+ def delete_student(student_id):
+    # Удаляет студента из базы данных по его ID
+    student = find_student_by_id(student_id)
+    if student:
+        students_db.remove(student)
+        print(f" Студент {student['name']} (ID {student_id}) успешно удален!")
+        return True
+    else:
+        print(" Студент с таким ID не найден.")
+        return False
 
 
 def main():
@@ -42,7 +53,8 @@ def main():
         print("1. Показать отчет")
         print("2. Найти студента по ID")
         print("3. Добавить студента")
-        print("4. Выход")
+        print("4. Удалить студента по ID")
+        print("5. Выход")
 
         choice = input("Выберите действие: ")
 
@@ -60,6 +72,9 @@ def main():
             grades = input("Оценки через запятую (например: 4,5,3): ")
             add_new_student(name, grades)
         elif choice == "4":
+            sid = input("Введите ID студента для удаления: ")
+            delete_student(sid)
+        elif choice == "5":
             break
         else:
             print("Неверный пункт меню")
